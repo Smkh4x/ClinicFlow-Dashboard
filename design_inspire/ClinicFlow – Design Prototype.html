@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ClinicFlow</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap">
+<style>
+:root{--p:#0B6E78;--ph:#095A63;--ps:#E6F3F4;--bg:#F6F8FA;--s:#fff;--t:#0F1F2E;--m:#5B6B7A;--b:#E1E7ED;--ok:#1E7A4C;--okb:#E7F5EE;--wn:#B45309;--wnb:#FDF1E0;--er:#C2362F;--erb:#FCEBEA;--in:#2563A8;--inb:#E8F0FA;--logo:#0B6E78;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--p:#3CB6C2;--ph:#5CC6D0;--ps:#12333A;--bg:#0B141C;--s:#111D27;--t:#E8EEF3;--m:#93A4B3;--b:#23323F;--ok:#4CC38A;--okb:#10301F;--wn:#F0A04B;--wnb:#33250F;--er:#F07A73;--erb:#3A1816;--in:#6FA8E8;--inb:#14263B;--logo:#3CB6C2}}
+:root[data-theme="dark"]{--p:#3CB6C2;--ph:#5CC6D0;--ps:#12333A;--bg:#0B141C;--s:#111D27;--t:#E8EEF3;--m:#93A4B3;--b:#23323F;--ok:#4CC38A;--okb:#10301F;--wn:#F0A04B;--wnb:#33250F;--er:#F07A73;--erb:#3A1816;--in:#6FA8E8;--inb:#14263B;--logo:#3CB6C2}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{font:14px/20px Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--t);font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.brand{font-family:Manrope,Inter,system-ui,sans-serif}
+h1{font-size:24px;line-height:32px;font-weight:700}h2{font-size:16px;line-height:24px;font-weight:600}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--p);text-decoration:none}
+.muted{color:var(--m)}.cap{font-size:12px;line-height:16px;font-weight:500;color:var(--m)}
+.brand{display:flex;align-items:center;gap:10px;font-size:16px;color:var(--t)}.brand b{font-weight:700}.brand span{font-weight:500}
+/* shell */
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+aside{background:var(--s);border-right:1px solid var(--b);padding:16px 12px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+aside .brand{padding:4px 8px 20px}
+nav{display:flex;flex-direction:column;gap:2px}
+.nv{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;color:var(--m);font-weight:500;cursor:pointer;border:0;background:none;text-align:left;width:100%}
+.nv:hover{background:var(--bg);color:var(--t)}.nv.on{background:var(--ps);color:var(--p)}
+.nv svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.bot{margin-top:auto;border-top:1px solid var(--b);padding-top:12px;display:flex;flex-direction:column;gap:2px}
+.me{display:flex;gap:10px;align-items:center;padding:8px 10px}
+.av{width:30px;height:30px;border-radius:50%;background:var(--ps);color:var(--p);display:grid;place-items:center;font-weight:600;font-size:12px;flex:none}
+.main{min-width:0}
+header.top{height:56px;background:var(--s);border-bottom:1px solid var(--b);display:flex;align-items:center;gap:12px;padding:0 32px;position:sticky;top:0;z-index:5}
+header.top .crumb{font-weight:500}.sp{flex:1}
+.role{font-size:12px;font-weight:500;padding:2px 8px;border:1px solid var(--b);border-radius:99px;color:var(--m)}
+.burger{display:none;background:none;border:1px solid var(--b);border-radius:6px;width:36px;height:36px;cursor:pointer}
+.page{padding:32px;max-width:1200px}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+/* ui */
+.card{background:var(--s);border:1px solid var(--b);border-radius:8px;box-shadow:0 1px 2px rgba(15,31,46,.04)}
+.btn{height:36px;padding:0 14px;border-radius:6px;border:1px solid var(--b);background:var(--s);font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{background:var(--bg)}.btn.pri{background:var(--p);border-color:var(--p);color:#fff}.btn.pri:hover{background:var(--ph)}
+:root[data-theme="dark"] .btn.pri{color:#06262B}
+.btn.dan{background:var(--er);border-color:var(--er);color:#fff}
+.ib{width:32px;height:32px;border-radius:6px;border:0;background:none;color:var(--m);cursor:pointer;display:inline-grid;place-items:center}
+.ib:hover{background:var(--bg);color:var(--t)}.ib.d:hover{background:var(--erb);color:var(--er)}
+.ib svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round}
+:focus-visible{outline:2px solid var(--p);outline-offset:2px}
+input,select,textarea{width:100%;height:40px;padding:0 12px;border:1px solid var(--b);border-radius:6px;background:var(--s)}
+textarea{height:88px;padding:10px 12px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--p);outline-offset:1px;border-color:var(--p)}
+label{display:block;font-weight:500;margin-bottom:6px}.fld{margin-bottom:16px}.fld small{display:block;margin-top:4px;font-size:12px;color:var(--m)}
+.bd{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px;border-radius:99px;font-size:12px;font-weight:500}
+.bd:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.Pending{background:var(--wnb);color:var(--wn)}.Confirmed{background:var(--okb);color:var(--ok)}.Cancelled{background:var(--erb);color:var(--er)}
+.tbw{overflow-x:auto}table{width:100%;border-collapse:collapse}
+th{font-size:12px;font-weight:500;color:var(--m);text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:10px 16px;border-bottom:1px solid var(--b);white-space:nowrap}
+td{padding:0 16px;height:52px;border-bottom:1px solid var(--b);white-space:nowrap}
+tr:last-child td{border-bottom:0}tbody tr:hover{background:var(--bg)}
+.r{text-align:right}.tool{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}.tool>*{flex:0 1 auto}.tool input{width:320px;max-width:100%}.tool select,.tool input[type=date]{width:170px}
+.pg{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--b)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.st{padding:20px}.st .n{font:700 28px/32px Manrope,sans-serif;margin-top:8px}.st.hi{border-top:3px solid var(--p)}
+.g2{display:grid;grid-template-columns:1.6fr 1fr;gap:16px}
+.ch{padding:16px 20px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+.ap{display:flex;gap:16px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--b)}.ap:last-child{border-bottom:0}
+.tm{width:52px;font-weight:600}
+.bar{display:flex;height:8px;border-radius:99px;overflow:hidden;background:var(--b);margin:12px 0}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:12px 16px;padding:20px}.kv dt{color:var(--m)}.kv dd{margin:0;font-weight:500}
+.det{display:grid;grid-template-columns:320px 1fr;gap:16px;align-items:start}
+.form{max-width:720px;padding:24px}.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.acts{display:flex;gap:8px;justify-content:flex-end;padding-top:8px;border-top:1px solid var(--b);margin-top:8px;padding-top:20px}
+.empty{padding:56px 24px;text-align:center}.empty h2{margin:12px 0 4px}
+.empty .ic{width:44px;height:44px;border-radius:8px;background:var(--ps);color:var(--p);display:inline-grid;place-items:center}
+dialog{border:1px solid var(--b);border-radius:8px;padding:24px;width:440px;max-width:calc(100vw - 32px);background:var(--s);color:var(--t);margin:auto}
+dialog::backdrop{background:rgba(15,31,46,.45)}dialog p{margin:8px 0 20px;color:var(--m)}
+.back{display:inline-flex;gap:6px;color:var(--m);margin-bottom:12px;cursor:pointer;background:none;border:0;font-weight:500}
+/* login */
+.login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.lf{display:flex;flex-direction:column;justify-content:center;padding:48px;max-width:440px;width:100%;margin:auto}
+.lf .brand{font-size:22px;margin-bottom:32px}.lf h1{margin-bottom:4px}
+.lv{background:var(--ps);border-left:1px solid var(--b);display:flex;align-items:center;justify-content:center;padding:48px}
+.lv .card{width:100%;max-width:380px;padding:20px}
+.ov{display:none}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.g2,.det{grid-template-columns:1fr}.login{grid-template-columns:1fr}.lv{display:none}}
+@media(max-width:860px){
+.app{grid-template-columns:1fr}
+aside{position:fixed;z-index:20;left:0;top:0;width:260px;transform:translateX(-100%);transition:transform .2s}
+body.open aside{transform:none}body.open .ov{display:block;position:fixed;inset:0;background:rgba(15,31,46,.45);z-index:15}
+.burger{display:grid;place-items:center}header.top{padding:0 16px}.page{padding:20px 16px}
+.row2{grid-template-columns:1fr}.kv{grid-template-columns:110px 1fr}
+.tool input,.tool select,.tool input[type=date]{width:100%;flex:1 1 100%}}
+@media(prefers-reduced-motion:reduce){aside{transition:none}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<dialog id="dlg"><h2 id="dt"></h2><p id="dp"></p><div class="acts" style="border:0;margin:0;padding:0"><button class="btn" onclick="dlg.close()">Cancel</button><button class="btn dan" onclick="dlg.close();toast()">Delete</button></div></dialog>
+<script>
+const logo=(s=28)=>`<svg width="${s}" height="${s}" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="var(--logo)"/><path d="M22 10.5A8 8 0 1 0 22 21.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="22.5" cy="16" r="2.6" fill="#fff"/></svg>`;
+const brand=s=>`<div class="brand">${logo(s)}<div><b>Clinic</b><span>Flow</span></div></div>`;
+const I={d:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',p:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c2 .6 3.3 2.3 3.6 5"/>',a:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/>',s:'<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.3 3h-4l-.3 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.3 2.7h4l.3-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/>',o:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',e:'<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',t:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',q:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',x:'<path d="M4 6h16M4 12h16M4 18h16"/>',l:'<path d="m15 18-6-6 6-6"/>'};
+const ic=(k,c='')=>`<svg viewBox="0 0 24 24" class="${c}" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round">${I[k]}</svg>`;
+const P=[["Amina El Idrissi","BK482913","+212 661 204 817","1988-03-14","12 Rue Ibn Sina, Casablanca"],["Youssef Benani","BE317745","+212 662 918 340","1975-11-02","45 Bd Zerktouni, Casablanca"],["Salma Tazi","JA220381","+212 670 553 192","1996-07-21","8 Av. Hassan II, Rabat"],["Omar Cherkaoui","BH904422","+212 655 730 046","1962-01-30","23 Rue Allal Ben Abdellah, Fès"],["Nadia Lahlou","BJ118876","+212 664 281 903","2001-09-09","3 Rue Moulay Youssef, Casablanca"],["Karim Alaoui","BL556120","+212 661 407 755","1983-05-17","90 Bd Anfa, Casablanca"],["Hind Berrada","BK730914","+212 668 119 268","1970-12-04","17 Rue Oued Zem, Rabat"],["Reda Mansouri","BE662301","+212 673 845 521","1992-02-26","6 Rue de Marseille, Casablanca"]].map((r,i)=>({id:i,n:r[0],cin:r[1],ph:r[2],bd:r[3],ad:r[4]}));
+const A=[["09:00",0,"Confirmed","Annual check-up"],["09:30",3,"Confirmed","Blood pressure follow-up"],["10:15",2,"Pending","Skin rash consultation"],["11:00",5,"Pending","Lab results review"],["11:45",1,"Confirmed","Vaccination"],["14:00",4,"Cancelled","General consultation"],["15:30",6,"Pending","Prescription renewal"],["16:15",7,"Confirmed","Post-op follow-up"]].map((r,i)=>({t:r[0],p:r[1],s:r[2],r:r[3],d:`2026-09-${String(30-(i%3)*2).padStart(2,'0')}`}));
+const bd=s=>`<span class="bd ${s}">${s}</span>`;
+const ini=n=>n.split(' ').map(w=>w[0]).join('').slice(0,2);
+let route=location.hash.slice(1)||'login',q='',fs='',page=1;
+const nav=[['dashboard','Dashboard','d'],['patients','Patients','p'],['appointments','Appointments','a']];
+function shell(active,crumb,body){return `<div class="app"><aside aria-label="Main">${brand(28)}<nav>${nav.map(n=>`<button class="nv ${active==n[0]?'on':''}" onclick="go('${n[0]}')" ${active==n[0]?'aria-current="page"':''}>${ic(n[2])}${n[1]}</button>`).join('')}</nav><div class="bot"><button class="nv" onclick="go('dashboard')">${ic('s')}Settings</button><div class="me"><div class="av">DM</div><div style="flex:1;min-width:0"><div style="font-weight:500">Dr. Mehdi</div><div class="cap">Admin</div></div><button class="ib" title="Log out" aria-label="Log out" onclick="go('login')">${ic('o')}</button></div></div></aside><div class="ov" onclick="document.body.classList.remove('open')"></div><div class="main"><header class="top"><button class="burger" aria-label="Open menu" onclick="document.body.classList.add('open')">${ic('x')}</button><span class="crumb">${crumb}</span><span class="sp"></span><span class="role">Admin</span></header><main class="page">${body}</main></div></div>`}
+const pat=id=>P[id];
+function login(){return `<div class="login"><form class="lf" onsubmit="event.preventDefault();go('dashboard')">${brand(40)}<h1>Sign in</h1><p class="muted" style="margin:4px 0 24px">Access your clinic workspace.</p><div class="fld"><label for="em">Email</label><input id="em" type="email" value="mehdi@clinic.ma" autocomplete="username"></div><div class="fld"><label for="pw">Password</label><input id="pw" type="password" value="password" autocomplete="current-password"></div><button class="btn pri" style="width:100%;height:40px;justify-content:center">Sign in</button><p class="cap" style="margin-top:24px">Accounts are created by your clinic administrator.</p></form><div class="lv"><div class="card"><div class="cap">TODAY</div><h2 style="margin-bottom:12px">Tuesday schedule</h2>${A.slice(0,4).map(a=>`<div class="ap" style="padding:10px 0"><span class="tm">${a.t}</span><span style="flex:1">${pat(a.p).n}</span>${bd(a.s)}</div>`).join('')}</div></div></div>`}
+function dash(){const c=s=>A.filter(a=>a.s==s).length;return shell('dashboard','Dashboard',`<div class="ph"><div><h1>Dashboard</h1><p class="muted">Wednesday, 30 September 2026</p></div><button class="btn pri" onclick="go('appt-new')">+ New appointment</button></div><div class="stats"><div class="card st hi"><div class="cap">Today's appointments</div><div class="n">${A.length}</div></div><div class="card st"><div class="cap">Pending</div><div class="n">${c('Pending')}</div></div><div class="card st"><div class="cap">Confirmed</div><div class="n">${c('Confirmed')}</div></div><div class="card st"><div class="cap">Total patients</div><div class="n">1,284</div></div></div><div class="g2"><div class="card"><div class="ch"><h2>Today's schedule</h2><a href="#appointments">View all</a></div>${A.map(a=>`<div class="ap"><span class="tm">${a.t}</span><div style="flex:1;min-width:0"><div style="font-weight:500">${pat(a.p).n}</div><div class="cap">${a.r}</div></div>${bd(a.s)}</div>`).join('')}</div><div class="card" style="padding:20px;align-self:start"><h2>Status breakdown</h2><div class="bar"><i style="width:${c('Confirmed')/A.length*100}%;background:var(--ok)"></i><i style="width:${c('Pending')/A.length*100}%;background:var(--wn)"></i><i style="width:${c('Cancelled')/A.length*100}%;background:var(--er)"></i></div>${['Confirmed','Pending','Cancelled'].map(s=>`<div style="display:flex;justify-content:space-between;padding:6px 0">${bd(s)}<b>${c(s)}</b></div>`).join('')}</div></div>`)}
+function pats(){const L=P.filter(p=>(p.n+p.cin).toLowerCase().includes(q.toLowerCase()));return shell('patients','Patients',`<div class="ph"><div><h1>Patients</h1><p class="muted">Manage patient records.</p></div><button class="btn pri" onclick="go('patient-new')">+ Add patient</button></div><div class="tool"><div style="position:relative;flex:1;max-width:320px"><input placeholder="Search by name or CIN" value="${q}" oninput="q=this.value;keep(pats)" aria-label="Search patients" id="sr"></div></div><div class="card">${L.length?`<div class="tbw"><table><thead><tr><th>Patient</th><th>CIN</th><th>Phone</th><th>Birth date</th><th class="r">Actions</th></tr></thead><tbody>${L.map(p=>`<tr><td><a href="#patient/${p.id}" style="display:flex;gap:10px;align-items:center;color:var(--t);font-weight:500"><span class="av">${ini(p.n)}</span>${p.n}</a></td><td>${p.cin}</td><td>${p.ph}</td><td>${p.bd}</td><td class="r"><button class="ib" aria-label="Edit ${p.n}" onclick="go('patient-edit/${p.id}')">${ic('e')}</button><button class="ib d" aria-label="Delete ${p.n}" onclick="del('${p.n}')">${ic('t')}</button></td></tr>`).join('')}</tbody></table></div><div class="pg"><span class="muted">Showing 1–${L.length} of 1,284</span><div style="display:flex;gap:8px"><button class="btn" disabled>Previous</button><button class="btn">Next</button></div></div>`:`<div class="empty"><div class="ic">${ic('q')}</div><h2>No patients found</h2><p class="muted">No results for “${q}”. Check the spelling or search by CIN.</p></div>`}</div>`)}
+function patd(id){const p=pat(id),L=A.filter(a=>a.p==id).concat(A.filter(a=>a.p!=id).slice(0,2).map(a=>({...a,p:id})));return shell('patients','Patients / '+p.n,`<button class="back" onclick="go('patients')">${ic('l')}Patients</button><div class="ph"><div style="display:flex;gap:14px;align-items:center"><span class="av" style="width:48px;height:48px;font-size:16px">${ini(p.n)}</span><div><h1>${p.n}</h1><p class="muted">CIN ${p.cin}</p></div></div><div style="display:flex;gap:8px"><button class="btn" onclick="go('patient-edit/${id}')">Edit</button><button class="btn pri" onclick="go('appt-new')">+ Appointment</button></div></div><div class="det"><div class="card"><div class="ch"><h2>Patient information</h2></div><dl class="kv"><dt>CIN</dt><dd>${p.cin}</dd><dt>Phone</dt><dd>${p.ph}</dd><dt>Birth date</dt><dd>${p.bd}</dd><dt>Address</dt><dd>${p.ad}</dd></dl></div><div class="card"><div class="ch"><h2>Appointments</h2><span class="cap">${L.length} total</span></div>${L.map(a=>`<div class="ap"><div style="width:96px"><div style="font-weight:500">${a.d}</div><div class="cap">${a.t}</div></div><div style="flex:1;min-width:0">${a.r}</div>${bd(a.s)}</div>`).join('')}</div></div>`)}
+function appts(){const L=A.filter(a=>!fs||a.s==fs);return shell('appointments','Appointments',`<div class="ph"><div><h1>Appointments</h1><p class="muted">Schedule and track visits.</p></div><button class="btn pri" onclick="go('appt-new')">+ New appointment</button></div><div class="tool"><input type="date" value="2026-09-30" aria-label="Date"><select aria-label="Status" onchange="fs=this.value;render()"><option value="">All statuses</option>${['Pending','Confirmed','Cancelled'].map(s=>`<option ${fs==s?'selected':''}>${s}</option>`).join('')}</select></div><div class="card">${L.length?`<div class="tbw"><table><thead><tr><th>Time</th><th>Patient</th><th>Reason</th><th>Status</th><th class="r">Update</th></tr></thead><tbody>${L.map(a=>`<tr><td style="font-weight:600">${a.t}</td><td><a href="#patient/${a.p}" style="color:var(--t);font-weight:500">${pat(a.p).n}</a></td><td class="muted">${a.r}</td><td>${bd(a.s)}</td><td class="r"><select aria-label="Change status" style="width:130px;height:32px" onchange="toast('Status updated')">${['Pending','Confirmed','Cancelled'].map(s=>`<option ${a.s==s?'selected':''}>${s}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table></div>`:`<div class="empty"><div class="ic">${ic('a')}</div><h2>No appointments</h2><p class="muted">Nothing matches these filters.</p></div>`}</div>`)}
+function pform(id){const p=id!=null?pat(id):{n:'',cin:'',ph:'',bd:'',ad:''};return shell('patients',(id!=null?'Edit':'New')+' patient',`<button class="back" onclick="go('patients')">${ic('l')}Patients</button><div class="ph"><h1>${id!=null?'Edit patient':'Add patient'}</h1></div><form class="card form" onsubmit="event.preventDefault();go('patients');toast('Patient saved')"><div class="fld"><label for="f1">Full name</label><input id="f1" required value="${p.n}"></div><div class="row2"><div class="fld"><label for="f2">CIN</label><input id="f2" required value="${p.cin}"><small>National ID card number</small></div><div class="fld"><label for="f3">Phone</label><input id="f3" type="tel" required value="${p.ph}"></div></div><div class="fld" style="max-width:340px"><label for="f4">Birth date</label><input id="f4" type="date" value="${p.bd}"></div><div class="fld"><label for="f5">Address</label><textarea id="f5">${p.ad}</textarea></div><div class="acts"><button type="button" class="btn" onclick="go('patients')">Cancel</button><button class="btn pri">Save patient</button></div></form>`)}
+function aform(){return shell('appointments','New appointment',`<button class="back" onclick="go('appointments')">${ic('l')}Appointments</button><div class="ph"><h1>New appointment</h1></div><form class="card form" onsubmit="event.preventDefault();go('appointments');toast('Appointment created')"><div class="fld"><label for="a1">Patient</label><select id="a1">${P.map(p=>`<option>${p.n} — ${p.cin}</option>`).join('')}</select></div><div class="row2"><div class="fld"><label for="a2">Date</label><input id="a2" type="date" value="2026-09-30"></div><div class="fld"><label for="a3">Time</label><input id="a3" type="time" value="09:00"></div></div><div class="fld" style="max-width:340px"><label for="a4">Status</label><select id="a4"><option>Pending</option><option>Confirmed</option><option>Cancelled</option></select></div><div class="fld"><label for="a5">Reason</label><input id="a5" placeholder="e.g. Follow-up consultation"></div><div class="fld"><label for="a6">Notes <span class="muted" style="font-weight:400">(optional)</span></label><textarea id="a6"></textarea></div><div class="acts"><button type="button" class="btn" onclick="go('appointments')">Cancel</button><button class="btn pri">Create appointment</button></div></form>`)}
+function render(){document.body.classList.remove('open');const [r,id]=route.split('/');const v={login,dashboard:dash,patients:pats,appointments:appts,'appt-new':aform}[r];let h;if(r=='patient')h=patd(+id);else if(r=='patient-new')h=pform();else if(r=='patient-edit')h=pform(+id);else h=(v||login)();document.getElementById('root').innerHTML=h;scrollTo(0,0)}
+function keep(f){const s=document.getElementById('sr'),pos=s.selectionStart;document.getElementById('root').innerHTML=f();const n=document.getElementById('sr');n.focus();n.setSelectionRange(pos,pos)}
+function go(r){location.hash=r}
+function del(n){dt.textContent='Delete '+n+'?';dp.textContent='This permanently removes the patient and their appointments. This cannot be undone.';dlg.showModal()}
+function toast(m='Patient deleted'){const t=document.createElement('div');t.textContent=m;t.setAttribute('role','status');t.style.cssText='position:fixed;bottom:24px;right:24px;background:var(--t);color:var(--s);padding:10px 16px;border-radius:6px;z-index:99';document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+addEventListener('hashchange',()=>{route=location.hash.slice(1)||'login';render()});render();
+</script>
+</body>
+</html>
