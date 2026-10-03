@@ -4,7 +4,7 @@ ClinicFlow is a modern, responsive web application (PERN stack) designed for sma
 
 This project was built following strict requirements for clean architecture, a solid database design, and a functional React UI.
 
-## 🚀 Features
+##  Features
 
 - **Authentication & Roles**: Secure JWT-based authentication with `admin` and `staff` role differentiation. Password hashing via `bcrypt`.
 - **Patient Management**: Full CRUD operations for patients (Create, Read, Update, Delete - admin only). Includes pagination and search by Name or CIN.
@@ -12,7 +12,7 @@ This project was built following strict requirements for clean architecture, a s
 - **Dashboard Analytics**: Real-time statistics displaying total patients, today's appointments, pending, and confirmed counts.
 - **Dark Mode UI**: Beautiful, fully responsive React interface with Dark/Light mode support.
 
-## 🏗️ Architecture & Tech Stack
+##  Architecture & Tech Stack
 
 This project uses a monorepo structure powered by `pnpm workspaces`:
 
@@ -20,7 +20,7 @@ This project uses a monorepo structure powered by `pnpm workspaces`:
 - **Backend (apps/api)**: Node.js, Express, TypeScript. Layered architecture (Routes ➔ Controllers ➔ Services ➔ Repositories). Input validation via `Zod`.
 - **Frontend (apps/web)**: React, Vite, TypeScript. Custom responsive UI (Vanilla CSS) without heavy component libraries.
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
 ### 1. Prerequisites
 - Node.js (v18+)
@@ -62,7 +62,7 @@ This will start both the frontend (`localhost:5173`) and the backend API (`local
 pnpm dev
 ```
 
-## 🧪 Default Test Credentials
+##  Default Test Credentials
 
 The database seed provides the following default users:
 
