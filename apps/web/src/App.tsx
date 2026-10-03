@@ -98,10 +98,48 @@ function Shell({ active, crumb, theme, toggleTheme, children }: { active: string
 const bd = (s: string) => <span className={`bd ${s.toLowerCase()}`}>{s}</span>;
 const ini = (n: string) => n.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
+function AnimatedBrand() {
+  return (
+    <div className="animated-brand">
+      <svg className="ab-logo" width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="var(--logo)" strokeWidth="2" fill="none" strokeLinecap="round">
+          <circle cx="50" cy="50" r="8" />
+          <rect x="46" y="16" width="8" height="22" rx="4" />
+          <rect x="46" y="62" width="8" height="26" rx="4" />
+          <rect x="20" y="46" width="18" height="8" rx="4" />
+          <rect x="62" y="46" width="22" height="8" rx="4" />
+          <circle cx="76" cy="28" r="5" />
+          <circle cx="28" cy="76" r="4" opacity="0.6" />
+        </g>
+      </svg>
+      <div className="ab-text"><b>Clinic</b><span>Flow</span></div>
+    </div>
+  );
+}
+
+function Loader() {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '100px 0', width: '100%' }}>
+      <svg className="loader-logo" width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="var(--logo)" strokeWidth="2" fill="none" strokeLinecap="round">
+          <circle cx="50" cy="50" r="8" />
+          <rect x="46" y="16" width="8" height="22" rx="4" />
+          <rect x="46" y="62" width="8" height="26" rx="4" />
+          <rect x="20" y="46" width="18" height="8" rx="4" />
+          <rect x="62" y="46" width="22" height="8" rx="4" />
+          <circle cx="76" cy="28" r="5" />
+          <circle cx="28" cy="76" r="4" opacity="0.6" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 function Login() {
   const [email, setEmail] = useState('admin@clinicflow.com');
   const [password, setPassword] = useState('password123');
   const [error, setError] = useState('');
+  const [theme, setTheme] = useState((window as any).__theme || 'light');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,8 +154,18 @@ function Login() {
     }
   };
 
+  const toggleTheme = () => {
+    (window as any).__toggleTheme();
+    setTheme((window as any).__theme);
+  };
+
   return (
     <div className="login">
+      <div style={{ position: 'absolute', top: 24, right: 24, zIndex: 10 }}>
+        <button type="button" className="ib" aria-label="Toggle theme" onClick={toggleTheme} title="Toggle theme">
+          {theme === 'dark' ? <IconSun className="icon" /> : <IconMoon className="icon" />}
+        </button>
+      </div>
       <form className="lf" onSubmit={handleLogin}>
         <div style={{ marginBottom: 32 }}>
           <Brand size={40} />
@@ -137,6 +185,9 @@ function Login() {
         </div>
         <button type="submit" className="btn pri" style={{ width: '100%', height: 40, justifyContent: 'center' }}>Sign in</button>
       </form>
+      <div className="login-hero">
+        <AnimatedBrand />
+      </div>
     </div>
   );
 }
@@ -151,7 +202,7 @@ function Dashboard() {
     api.getAppointments({ date: today }).then(setAppointments).catch(console.error);
   }, []);
 
-  if (!stats) return <Shell active="dashboard" crumb="Dashboard" theme={''} toggleTheme={()=>{}}><div style={{ padding: 40 }}>Loading...</div></Shell>;
+  if (!stats) return <Shell active="dashboard" crumb="Dashboard" theme={''} toggleTheme={()=>{}}><Loader /></Shell>;
 
   return (
     <Shell active="dashboard" crumb="Dashboard" theme={(window as any).__theme} toggleTheme={(window as any).__toggleTheme}>
@@ -261,7 +312,7 @@ function Patients() {
       </div>
       <div className="card">
         {loading ? (
-          <div style={{ padding: 40, textAlign: 'center' }}>Loading...</div>
+          <Loader />
         ) : patients.length > 0 ? (
           <>
             <div className="tbw">
@@ -315,7 +366,7 @@ function PatientDetails({ id }: { id: string }) {
     api.getPatient(id).then(setPatient).catch(console.error);
   }, [id]);
 
-  if (!patient) return <Shell active="patients" crumb="Patients" theme={''} toggleTheme={()=>{}}><div style={{ padding: 40 }}>Loading...</div></Shell>;
+  if (!patient) return <Shell active="patients" crumb="Patients" theme={''} toggleTheme={()=>{}}><Loader /></Shell>;
 
   const L = patient.appointments || [];
 
@@ -419,7 +470,7 @@ function Appointments() {
       </div>
       <div className="card">
         {loading ? (
-          <div style={{ padding: 40, textAlign: 'center' }}>Loading...</div>
+          <Loader />
         ) : appointments.length > 0 ? (
           <div className="tbw">
             <table>

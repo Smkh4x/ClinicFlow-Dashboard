@@ -530,3 +530,78 @@ dialog p { margin: var(--sp-100) 0 var(--sp-300); color: var(--m); }
   aside { transition: none; }
   * { transition: none !important; }
 }
+
+/* Login Hero Animation */
+.login-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--t); /* Invert background */
+  color: var(--bg); /* Invert text */
+  border-left: 1px solid var(--b);
+  overflow: hidden;
+}
+
+.animated-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ab-logo {
+  animation: slideUp 1s ease 1.5s forwards;
+  transform: translateY(30px);
+}
+
+.ab-logo g * {
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
+  animation: drawLine 1.5s ease forwards, fillIn 0.5s ease 1.2s forwards;
+}
+
+.ab-text {
+  margin-top: 16px;
+  font-size: 2.5rem;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.5s forwards;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--bg); /* Invert text color */
+}
+.ab-text span {
+  font-weight: 300;
+  color: var(--b); /* Subtle inverted color */
+}
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fillIn {
+  to { fill: var(--logo); stroke: transparent; }
+}
+@keyframes slideUp {
+  to { transform: translateY(0); }
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@media(max-width:1000px) {
+  .login-hero { display: none; }
+}
+
+/* Loader Animation */
+.loader-logo {
+  animation: pulse-loader 2s infinite ease-in-out 1.5s;
+}
+.loader-logo g * {
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
+  animation: drawLine 1.2s ease forwards, fillIn 0.5s ease 1.0s forwards;
+}
+
+@keyframes pulse-loader {
+  0%, 100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 0px transparent); }
+  50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1)); }
+}
