@@ -627,18 +627,34 @@ dialog p { margin: var(--sp-100) 0 var(--sp-300); color: var(--m); }
 }
 
 .tt-logo {
-  animation: slowSpin 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform: scale(1.5);
 }
 
-.tt-logo g * {
+.tt-logo g rect {
   stroke-dasharray: 150;
   stroke-dashoffset: 150;
   animation: drawLine 1.5s ease forwards, fillIn 0.5s ease 1.0s forwards;
 }
 
-@keyframes slowSpin {
-  0% { transform: scale(1.5) rotate(0deg); }
-  100% { transform: scale(1.5) rotate(360deg); }
+.tt-logo g circle {
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
+}
+
+.theme-transition-overlay.to-dark .tt-logo g circle {
+  animation: drawLine 1.5s ease forwards, fillInCircleDark 0.5s ease 1.0s forwards;
+}
+
+.theme-transition-overlay.to-light .tt-logo g circle {
+  animation: drawLine 1.5s ease forwards, fillInCircleLight 0.5s ease 1.0s forwards;
+}
+
+@keyframes fillInCircleDark {
+  to { fill: #FFFFFF; stroke: transparent; }
+}
+
+@keyframes fillInCircleLight {
+  to { fill: #111111; stroke: transparent; }
 }
 
 @keyframes toDarkBg {
