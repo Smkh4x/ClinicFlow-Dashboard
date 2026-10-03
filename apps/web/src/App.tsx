@@ -57,9 +57,7 @@ function Shell({ active, crumb, theme, toggleTheme, children }: { active: string
           ))}
         </nav>
         <div className="bot">
-          <button className="nv" onClick={() => window.location.hash = 'dashboard'}>
-            <IconSettings className="icon" />Settings
-          </button>
+
           {user && (
             <div className="me">
               <div className="av">{user.email.substring(0, 2).toUpperCase()}</div>
