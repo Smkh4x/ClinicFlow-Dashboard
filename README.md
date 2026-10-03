@@ -1,82 +1,75 @@
-# ClinicFlow
+# ClinicFlow - Patient & Appointment Management System
 
-## Overview
-ClinicFlow is a small clinic management MVP application that handles patients, appointments, users, roles, and dashboard statistics.
+ClinicFlow is a modern, responsive web application (PERN stack) designed for small clinics to manage patients, appointments, and staff users. 
 
-## Tech Stack
-- **Frontend**: React, Vite, TypeScript
-- **Backend**: Node.js, Express, TypeScript
-- **Database**: PostgreSQL
-- **Package Manager**: pnpm workspaces
-- **Containerization**: Docker Compose
+This project was built following strict requirements for clean architecture, a solid database design, and a functional React UI.
 
-## Architecture
-The monorepo structure allows for clear separation of concerns between `apps/web` and `apps/api`. The API is built using a layered architecture: Routes -> Controllers -> Services -> Repositories.
+## 🚀 Features
 
-## Project Structure
-```text
-clinicflow/
-├── apps/
-│   ├── web/        # React application
-│   └── api/        # Express application
-├── packages/       # Shared packages (future)
-├── infrastructure/ # Docker and infrastructure configuration
-├── docs/           # Architecture and requirement docs
-├── scripts/        # Helper scripts
+- **Authentication & Roles**: Secure JWT-based authentication with `admin` and `staff` role differentiation. Password hashing via `bcrypt`.
+- **Patient Management**: Full CRUD operations for patients (Create, Read, Update, Delete - admin only). Includes pagination and search by Name or CIN.
+- **Appointment Management**: Create and track appointments with statuses (`pending`, `confirmed`, `cancelled`). Includes a strict business rule: *A patient cannot have two confirmed appointments within a 30-minute window*.
+- **Dashboard Analytics**: Real-time statistics displaying total patients, today's appointments, pending, and confirmed counts.
+- **Dark Mode UI**: Beautiful, fully responsive React interface with Dark/Light mode support.
+
+## 🏗️ Architecture & Tech Stack
+
+This project uses a monorepo structure powered by `pnpm workspaces`:
+
+- **Database**: PostgreSQL (UUIDs, strict Foreign Key constraints, Indexes, ENUM checks).
+- **Backend (apps/api)**: Node.js, Express, TypeScript. Layered architecture (Routes ➔ Controllers ➔ Services ➔ Repositories). Input validation via `Zod`.
+- **Frontend (apps/web)**: React, Vite, TypeScript. Custom responsive UI (Vanilla CSS) without heavy component libraries.
+
+## ⚙️ Installation & Setup
+
+### 1. Prerequisites
+- Node.js (v18+)
+- `pnpm` (install via `npm install -g pnpm`)
+- Docker & Docker Compose (for the PostgreSQL database)
+
+### 2. Clone the repository
+```bash
+git clone https://github.com/Smkh4x/ClinicFlow-Dashboard.git
+cd ClinicFlow-Dashboard
 ```
 
-## Requirements
-See [docs/requirements.md](docs/requirements.md) for full traceability of business rules and planned implementations.
-
-## Installation
+### 3. Install dependencies
 ```bash
 pnpm install
 ```
 
-## Environment Variables
-Copy `.env.example` to `.env` and fill out the details.
+### 4. Setup Environment Variables
+Duplicate `.env.example` to `.env` (or just use the provided `.env` for local testing).
+```bash
+cp .env.example .env
+```
 
-## Development
-To start the entire stack:
+### 5. Start the Database (Docker)
 ```bash
 pnpm docker:up
+```
+
+### 6. Run Database Migrations & Seed Data
+This will create the necessary tables, relationships, and populate the database with test data.
+```bash
+pnpm --filter api run db:migrate
+pnpm --filter api run db:seed
+```
+
+### 7. Start the Development Server
+This will start both the frontend (`localhost:5173`) and the backend API (`localhost:4000`) concurrently.
+```bash
 pnpm dev
 ```
 
-## Docker
-PostgreSQL is provided via Docker in development.
-```bash
-pnpm docker:up
-pnpm docker:down
-pnpm docker:logs
-```
+## 🧪 Default Test Credentials
 
-## Database
-The database uses PostgreSQL with UUID primary keys.
+The database seed provides the following default users:
 
-## Migrations
-(Not yet implemented in Phase 1)
-```bash
-pnpm db:migrate
-```
+**Admin:**
+- Email: `admin@clinicflow.com`
+- Password: `password123`
 
-## Seed
-(Not yet implemented in Phase 1)
-```bash
-pnpm db:seed
-```
-
-## Testing
-(Not yet implemented)
-```bash
-pnpm test
-```
-
-## API
-Backend endpoints are strictly separated and will support roles (Admin/Staff) and JWT authentication. See architecture docs.
-
-## Future Desktop Application
-The UI and API layers are strictly decoupled. The React frontend can be packaged into an Electron/Tauri shell in the future without changing the React application structure.
-
-## Git Workflow
-Changes are committed incrementally. Please check the commit history.
+**Staff:**
+- Email: `staff1@clinicflow.com`
+- Password: `password123`
