@@ -605,3 +605,35 @@ dialog p { margin: var(--sp-100) 0 var(--sp-300); color: var(--m); }
   0%, 100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 0px transparent); }
   50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1)); }
 }
+
+/* Theme Transition Overlay */
+.theme-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(128, 128, 128, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: overlayFadeIn 0.3s ease forwards, overlayFadeOut 0.5s ease 1.9s forwards;
+}
+.tt-logo {
+  transform: scale(1.5);
+}
+.tt-logo g * {
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
+  animation: drawLine 1.5s ease forwards, fillIn 0.5s ease 1.3s forwards;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlayFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

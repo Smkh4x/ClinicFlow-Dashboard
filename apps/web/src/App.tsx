@@ -117,6 +117,24 @@ function AnimatedBrand() {
   );
 }
 
+function ThemeTransitionOverlay() {
+  return (
+    <div className="theme-transition-overlay">
+      <svg className="tt-logo" width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="var(--logo)" strokeWidth="2" fill="none" strokeLinecap="round">
+          <circle cx="50" cy="50" r="8" />
+          <rect x="46" y="16" width="8" height="22" rx="4" />
+          <rect x="46" y="62" width="8" height="26" rx="4" />
+          <rect x="20" y="46" width="18" height="8" rx="4" />
+          <rect x="62" y="46" width="22" height="8" rx="4" />
+          <circle cx="76" cy="28" r="5" />
+          <circle cx="28" cy="76" r="4" opacity="0.6" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 function Loader() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '100px 0', width: '100%' }}>
@@ -688,6 +706,8 @@ function App() {
   
   // Theme logic
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'system');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
   useEffect(() => {
     const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     if (isDark) {
@@ -699,8 +719,17 @@ function App() {
   }, [theme]);
 
   const toggleTheme = () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    setTheme(isDark ? 'light' : 'dark');
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    
+    setTimeout(() => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      setTheme(isDark ? 'light' : 'dark');
+      
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 700);
+    }, 1800);
   };
   
   (window as any).__theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
@@ -723,16 +752,24 @@ function App() {
 
   const [r, id] = route.split('/');
 
-  if (r === 'login') return <Login />;
-  if (r === 'dashboard') return <Dashboard />;
-  if (r === 'patients') return <Patients />;
-  if (r === 'appointments') return <Appointments />;
-  if (r === 'patient') return <PatientDetails id={id} />;
-  if (r === 'patient-new') return <PatientForm />;
-  if (r === 'patient-edit') return <PatientForm id={id} />;
-  if (r === 'appt-new') return <ApptForm />;
+  const renderPage = () => {
+    if (r === 'login') return <Login />;
+    if (r === 'dashboard') return <Dashboard />;
+    if (r === 'patients') return <Patients />;
+    if (r === 'appointments') return <Appointments />;
+    if (r === 'patient') return <PatientDetails id={id} />;
+    if (r === 'patient-new') return <PatientForm />;
+    if (r === 'patient-edit') return <PatientForm id={id} />;
+    if (r === 'appt-new') return <ApptForm />;
+    return <Login />;
+  };
 
-  return <Login />;
+  return (
+    <>
+      {renderPage()}
+      {isTransitioning && <ThemeTransitionOverlay />}
+    </>
+  );
 }
 
 export default App;
