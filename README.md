@@ -16,23 +16,11 @@ This project was built following strict requirements for clean architecture, a s
 
 Here is a glimpse of the ClinicFlow interface:
 
-### Login
-![Login](docs/screenshots/login.png)
+### Login (Light Mode)
+![Login Light](docs/screenshots/login-withmode.png)
 
-### Dashboard (Light Mode)
-![Dashboard Light](docs/screenshots/dashboard-light.png)
-
-### Patients List (Dark Mode)
-![Patients Dark](docs/screenshots/patients-dark.png)
-
-### Add Patient Form (Light Mode)
-![Add Patient](docs/screenshots/add-patient-light.png)
-
-### Appointments (Dark Mode)
-![Appointments Dark](docs/screenshots/appointments-dark.png)
-
-### Dashboard (Dark Mode)
-![Dashboard Dark](docs/screenshots/dashboard-dark.png)
+### Login (Dark Mode)
+![Login Dark](docs/screenshots/login-darkmode.png)
 
 ##  Architecture & Tech Stack
 
