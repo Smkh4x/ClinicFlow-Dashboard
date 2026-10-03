@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap');
 
 :root {
+  color-scheme: light;
   /* Premium OKLCH Palette (Monochrome Primary, Red) */
   --p: #111111; /* Dark Primary */
   --ph: #333333; /* Dark Hover */
@@ -58,6 +59,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --p: #FFFFFF;
     --ph: #E5E5E5;
     --ps: #333333;
@@ -79,6 +81,7 @@
 }
 
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --p: #FFFFFF;
   --ph: #E5E5E5;
   --ps: #333333;
