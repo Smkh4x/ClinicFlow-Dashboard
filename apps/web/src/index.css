@@ -611,29 +611,46 @@ dialog p { margin: var(--sp-100) 0 var(--sp-300); color: var(--m); }
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: rgba(128, 128, 128, 0.15);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: overlayFadeIn 0.3s ease forwards, overlayFadeOut 0.5s ease 1.9s forwards;
 }
+
+.theme-transition-overlay.to-dark {
+  animation: toDarkBg 2.2s ease forwards;
+}
+
+.theme-transition-overlay.to-light {
+  animation: toLightBg 2.2s ease forwards;
+}
+
 .tt-logo {
-  transform: scale(1.5);
+  animation: slowSpin 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+
 .tt-logo g * {
   stroke-dasharray: 150;
   stroke-dashoffset: 150;
-  animation: drawLine 1.5s ease forwards, fillIn 0.5s ease 1.3s forwards;
+  animation: drawLine 1.5s ease forwards, fillIn 0.5s ease 1.0s forwards;
 }
 
-@keyframes overlayFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes slowSpin {
+  0% { transform: scale(1.5) rotate(0deg); }
+  100% { transform: scale(1.5) rotate(360deg); }
 }
 
-@keyframes overlayFadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+@keyframes toDarkBg {
+  0% { background: rgba(255, 255, 255, 0); opacity: 0; }
+  20% { background: rgba(17, 17, 17, 0.95); opacity: 1; }
+  80% { background: rgba(17, 17, 17, 0.95); opacity: 1; }
+  100% { background: rgba(17, 17, 17, 0); opacity: 0; }
+}
+
+@keyframes toLightBg {
+  0% { background: rgba(17, 17, 17, 0); opacity: 0; }
+  20% { background: rgba(255, 255, 255, 0.95); opacity: 1; }
+  80% { background: rgba(255, 255, 255, 0.95); opacity: 1; }
+  100% { background: rgba(255, 255, 255, 0); opacity: 0; }
 }

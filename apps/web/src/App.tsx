@@ -117,9 +117,9 @@ function AnimatedBrand() {
   );
 }
 
-function ThemeTransitionOverlay() {
+function ThemeTransitionOverlay({ targetTheme }: { targetTheme: string }) {
   return (
-    <div className="theme-transition-overlay">
+    <div className={`theme-transition-overlay to-${targetTheme}`}>
       <svg className="tt-logo" width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <g stroke="var(--logo)" strokeWidth="2" fill="none" strokeLinecap="round">
           <circle cx="50" cy="50" r="8" />
@@ -707,6 +707,7 @@ function App() {
   // Theme logic
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'system');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [targetTheme, setTargetTheme] = useState('light');
 
   useEffect(() => {
     const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -720,16 +721,20 @@ function App() {
 
   const toggleTheme = () => {
     if (isTransitioning) return;
+    
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const nextTheme = isDark ? 'light' : 'dark';
+    
+    setTargetTheme(nextTheme);
     setIsTransitioning(true);
     
     setTimeout(() => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      setTheme(isDark ? 'light' : 'dark');
-      
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 700);
-    }, 1800);
+      setTheme(nextTheme);
+    }, 1000);
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 2200);
   };
   
   (window as any).__theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
@@ -767,7 +772,7 @@ function App() {
   return (
     <>
       {renderPage()}
-      {isTransitioning && <ThemeTransitionOverlay />}
+      {isTransitioning && <ThemeTransitionOverlay targetTheme={targetTheme} />}
     </>
   );
 }
