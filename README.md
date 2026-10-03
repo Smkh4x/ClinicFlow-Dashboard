@@ -12,6 +12,22 @@ This project was built following strict requirements for clean architecture, a s
 - **Dashboard Analytics**: Real-time statistics displaying total patients, today's appointments, pending, and confirmed counts.
 - **Dark Mode UI**: Beautiful, fully responsive React interface with Dark/Light mode support.
 
+## 📸 Screenshots
+
+Here is a glimpse of the ClinicFlow interface:
+
+| Login (Light Mode) | Dashboard (Light Mode) |
+|:---:|:---:|
+| ![Login](docs/screenshots/login.png) | ![Dashboard](docs/screenshots/dashboard-light.png) |
+
+| Patients List (Dark Mode) | Add Patient (Light Mode) |
+|:---:|:---:|
+| ![Patients](docs/screenshots/patients-dark.png) | ![Add Patient](docs/screenshots/add-patient-light.png) |
+
+| Appointments (Dark Mode) | Dashboard (Dark Mode) |
+|:---:|:---:|
+| ![Appointments Dark](docs/screenshots/appointments-dark.png) | ![Dashboard Dark](docs/screenshots/dashboard-dark.png) |
+
 ##  Architecture & Tech Stack
 
 This project uses a monorepo structure powered by `pnpm workspaces`:
